@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Kawaii Birthday 🎀</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:linear-gradient(-45deg,#ffd6ec,#ffe6f7,#fff0f7,#ffd1ea);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+overflow-x:hidden;text-align:center;
+}
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+h1{font-family:'Pacifico',cursive;color:#ff1493;margin-top:20px;font-size:2.3rem;text-shadow:0 0 20px #ff69b4;}
+
+.container{display:none;padding:20px;}
+
+.kitty{width:200px;margin:15px auto;animation:float 3s infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+
+button{
+background:#ff69b4;border:none;color:white;
+padding:12px 25px;border-radius:30px;
+margin:10px;cursor:pointer;
+box-shadow:0 5px 15px rgba(255,105,180,.4);
+transition:.3s;
+}
+button:hover{background:#ff1493;transform:scale(1.1);}
+
+.countdown{color:#ff1493;font-weight:bold;margin-top:10px;}
+
+.slide{display:none;width:90%;max-width:300px;border-radius:20px;margin:10px auto;box-shadow:0 10px 20px rgba(255,105,180,.4);}
+
+.letter{
+background:white;padding:20px;border-radius:20px;
+max-width:350px;margin:20px auto;color:#d63384;
+box-shadow:0 5px 15px rgba(255,105,180,.3);
+}
+.typing{border-right:2px solid #ff1493;white-space:pre-wrap;}
+
+.heart{position:fixed;bottom:-20px;animation:rise 5s linear infinite;}
+@keyframes rise{0%{transform:translateY(0);}100%{transform:translateY(-110vh);opacity:0;}}
+
+.firework{
+position:fixed;width:8px;height:8px;border-radius:50%;
+animation:explode 1s ease-out forwards;
+}
+@keyframes explode{
+0%{transform:scale(1);opacity:1;}
+100%{transform:scale(25);opacity:0;}
+}
+
+.confetti{
+position:fixed;width:8px;height:8px;
+animation:fall 4s linear forwards;
+}
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+/* LOCK SCREEN */
+.lockScreen{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:#fff0f7;display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+}
+input{
+padding:10px;border-radius:20px;border:2px solid #ff69b4;margin:10px;text-align:center;
+}
+.gift{font-size:60px;cursor:pointer;animation:bounce 1s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div class="lockScreen" id="lock">
+<h1>🎀 Enter Secret Code 🎀</h1>
+<input type="password" id="pass" placeholder="Enter password">
+<button onclick="unlock()">Unlock 💖</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container" id="main">
+
+<h1>🎀 Happy Birthday <span id="name">GODDES APARNIKA</span> 🎀</h1>
+<div class="countdown" id="countdown"></div>
+
+<div class="gift" onclick="openGift()">🎁</div>
+
+<img class="kitty" src="https://i.imgur.com/Z9a0YpK.png">
+
+<button onclick="launchFireworks()">Celebrate 🎆</button>
+<button onclick="toggleMusic()">🎵 Play / Pause Music</button>
+
+<img class="slide" src="photo1.jpg">
+<img class="slide" src="photo2.jpg">
+<img class="slide" src="photo3.jpg">
+
+<div class="letter">
+<h3>💌 My birthday Letter 💌</h3>
+<p class="typing" id="typing"></p>
+</div>
+
+</div>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// PASSWORD
+function unlock(){
+let password="Kitty123";
+if(document.getElementById("pass").value===password){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").style.display="block";
+let name=prompt("APARNIKA 🎀");
+if(name) document.getElementById("name").innerText=name;
+toggleMusic();
+}
+else alert("Wrong password 💔");
+}
+
+// MUSIC
+let music=document.getElementById("music");
+function toggleMusic(){
+if(music.paused){
+music.volume=0;
+music.play();
+let fade=setInterval(()=>{
+if(music.volume<1){music.volume+=0.05;}
+else clearInterval(fade);
+},200);
+}else{music.pause();}
+}
+
+// COUNTDOWN
+let birthday=new Date("March 04, 2026 00:00:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let d=birthday-now;
+if(d>0){
+let days=Math.floor(d/(1000*60*60*24));
+let hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+let min=Math.floor((d%(1000*60*60))/(1000*60));
+document.getElementById("countdown").innerHTML="⏳ "+days+"d "+hrs+"h "+min+"m left!";
+}else document.getElementById("countdown").innerHTML="🎉 IT'S TODAY!!!";
+},1000);
+
+// TYPING LETTER
+let text="Happy Birthday baddie devii jii 💖\this is a small gift from your bhakt.You are best girl in this world iver seen.Like your the lady and i am just a boy.i wish you a very happy bithday may god bless you sorry your the god may you saw your face in mirror and bless yourself...lastly your supercalifragilisticexpialidocious. fun fact i learn this word for you.thanks 🎀";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;setTimeout(type,40);
+}}
+type();
+
+// SLIDESHOW
+let s=0;let slides=document.getElementsByClassName("slide");
+function show(){
+for(let i=0;i<slides.length;i++)slides[i].style.display="none";
+s++;if(s>slides.length)s=1;
+slides[s-1].style.display="block";
+setTimeout(show,3000);
+}
+show();
+
+// FIREWORKS
+function launchFireworks(){
+for(let i=0;i<40;i++){
+let f=document.createElement("div");
+f.classList.add("firework");
+f.style.left=Math.random()*window.innerWidth+"px";
+f.style.top=Math.random()*window.innerHeight+"px";
+f.style.background=["#ff69b4","#ff1493","#ffc0cb","#fff","#ff85c1"][Math.floor(Math.random()*5)];
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
+}
+}
+
+// HEARTS
+setInterval(()=>{
+let h=document.createElement("div");
+h.classList.add("heart");
+h.innerHTML="💗";
+h.style.left=Math.random()*window.innerWidth+"px";
+h.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+},500);
+
+// GIFT CONFETTI
+function openGift(){
+for(let i=0;i<80;i++){
+let c=document.createElement("div");
+c.classList.add("confetti");
+c.style.left=Math.random()*window.innerWidth+"px";
+c.style.background=["#ff69b4","#ffc0cb","#fff","#ff1493"][Math.floor(Math.random()*4)];
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+}
+launchFireworks();
+}
+
+</script>
+
+</body>
+</html>
